@@ -1,0 +1,35 @@
+.order-basket{
+    display: inline-block;
+    width: 300px;
+    height: 550px;
+    border: black 2px solid;
+}
+.order-item{
+    min-height: 40px;
+    border: gray 1px solid;
+}
+
+.order-item p{
+    display: inline;
+    margin-top:30px ;
+    padding: 7px ;
+}
+.search-order {
+    display: inline-block
+}
+.yellow{
+   
+    background-color: yellow;
+    background-size:2px ;
+}
+.form{
+   width:20%;
+   float: right;
+   margin-right: 3%;
+}
+.label{
+    margin: 15px 4px 4px 0px;
+
+    text-align: right;
+    display: block;
+}
