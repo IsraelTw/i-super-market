@@ -1,45 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Col, Card, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import {domain} from '../../config';
 
-export default function Login({ isLogeedIn, setIsLogeedIn }) {
+export default function Login({ onUserSumbit }) {
     const [user, setUser] = useState({});
 
     const history = useHistory();
 
-    useEffect(() => {
-        if (isLogeedIn)
-            history.push('/Categories')
-    }, [history, isLogeedIn])
-
     function handelSubmit(e) {
         e.preventDefault();
 
-        fetch(`http://localhost:3002/login`, {
+        fetch(`${domain}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         })
             .then(res => res.json())
             .then(data => {
+
                 if (!data.isAuth) {
-                    setIsLogeedIn(false);
                     return setUser({ ...user, auth: <div style={{ color: 'red', float: 'right' }}>שם משתמש או סיסמה שגויים</div> });
                 }
                 setUser({ ...user, auth: <div style={{ color: 'green', float: 'right' }}>התחברת בהצלחה</div> });
-                setIsLogeedIn(true);
                 localStorage.setItem('auth', JSON.stringify({
                     isAuth: data.isAuth,
                     isAdmin: data.data[0].isAdmin,
-                    id: data.data[0].id
+                    id: data.data[0].id,
+                    name: data.data[0].firstName + ' ' + data.data[0].lastName
                 }));
-                if (data.data[0].isAdmin === false) { return history.push('/Categories') };
-                return history.push('/ManageProduct');
+
+                onUserSumbit();
+                return history.push('/Categories');
             })
-            .catch(err => alert(err))
+            .catch(err => alert(err));
     }
     return (
-        <Card style={{ width: '32rem', margin: 'auto', backgroundColor: "#e9ecef" }}>
+        <Card style={{ width: '32rem', margin: 'auto', marginTop: '5%' }}>
             <Card.Body>
                 <Card.Title style={{ textAlign: 'center', fontSize: '35px' }}>כניסה</Card.Title>
                 <Form dir="rtl" onSubmit={handelSubmit}>

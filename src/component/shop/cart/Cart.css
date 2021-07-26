@@ -1,0 +1,75 @@
+.sidebar {
+    margin-top: 10px;
+    height: 81%;
+    position: fixed;
+    width: 300px;
+    display: inline-block;
+    z-index: 1;
+    padding: 10px 0 0; 
+    background-color: rgb(217, 217, 219);
+    box-shadow: inset -1px 0 0 rgba(128, 117, 117, 0.1);
+}
+
+.small-sidebar {
+    display: inline-block;
+    margin-top: 10px;
+    height: 81%;
+    position: fixed;
+    width: 10px;
+    z-index: 1;
+    padding: 48px 0 0; 
+    background-color: rgb(217, 217, 219);
+    box-shadow: inset -1px 0 0 rgba(128, 117, 117, 0.1);
+}
+
+.toggel-open-btn {
+    position: absolute;
+    top: 60px;
+    left: 95%;
+    background: none;
+    border: none;
+}
+
+.toggel-close-btn {
+    position: absolute;
+    top: 89px;
+    left: 95%;
+    background: none;
+    border: none;
+}
+
+.hidden-nav-content {
+  visibility: hidden;
+}
+
+h3 {
+    text-align: right;
+    float: right;
+    margin-right: 3px;
+}
+ .hr1{
+    border-top: 1px solid black;
+    margin-left: 20px;
+}
+
+.cart-content {
+    height: 25rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.product-name {
+    display: inline-block;
+    text-align: right;
+    direction: rtl;
+    white-space: nowrap; 
+    width: 130px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    padding-left: 15px;
+}
+
+.bottom-nav {
+    margin-top: 9%;
+}

@@ -1,0 +1,12 @@
+.product-button-div {
+    display: inline-block;
+}
+
+.product-button {
+    border: none;
+}
+
+.product-button-delete {
+    background: none;
+    border: none;
+}

@@ -1,0 +1,33 @@
+.product-card {
+    width: 16rem;
+     height: 277.25px;
+     float: right;
+     border:  0.5px solid lightgray;
+     margin: 2px;
+     overflow: hidden;
+}
+
+.card-content p {
+    margin-right: 20px;
+}
+
+.span-btn {
+  margin: 20px;
+} 
+
+#p {
+    direction: rtl;
+    font-size:18px 
+}
+
+.card-img {
+    width: 180px;
+    height: 180px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 0.5s;
+}
+
+.card-img:hover {
+    transform: scale(1.03);
+}

@@ -7,7 +7,6 @@ export default function useFetch(url) {
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => alert(err))
-        console.log('custom hooks');
     }, [url])
     return data;
 }

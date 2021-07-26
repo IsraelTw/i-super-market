@@ -1,0 +1,32 @@
+ .product-cards {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    float: right;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding:1%; 
+    width: 80%;
+}
+
+.card {
+    width: 250px;
+    height: auto;
+    border: black 1px solid;
+    background-position: center;
+    background-size: cover;
+}
+
+.card-img {
+    width: 250px;
+    height: 250px;
+     background-position: center;
+     background-size: cover;
+     overflow: hidden;
+}
+
+.card-content {
+   float: right;
+}

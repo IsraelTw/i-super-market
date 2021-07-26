@@ -6,6 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import './Register.css';
+import {domain} from '../../config';
 
 export default function Register() {
     const history = useHistory();
@@ -24,13 +25,17 @@ export default function Register() {
     const [errors, setErrors] = useState({})
 
     const [btn, setBtn] = useState({ disabledBtn: true, disabledRegisterBtn: true })
-
+    const [citiesList, setCitiesList] = useState([]);
     const { password, password2, email } = user;
+
 
     useEffect(() => {
         if (activeStep === 0) handelDisableNextBtn();
         else if (activeStep === 1) handelDisableRegisterBtn();
-
+        fetch(`${domain}/citiesList`)
+            .then(res => res.json())
+            .then(data => setCitiesList(data))
+            .catch(err => console.log(err))
     }, [user])
 
     function getSteps() {
@@ -54,7 +59,7 @@ export default function Register() {
                 return setErrors({ ...errors, [name]: 'דואר אלקטרוני לא תקין' });
             }
             else {
-                fetch(`http://localhost:3002/email/${value}`)
+                fetch(`${domain}/email/${value}`)
                     .then(data => data.json())
                     .then(data => {
                         if (data === 'email is already taken') {
@@ -97,19 +102,17 @@ export default function Register() {
 
     async function register() {
         try {
-            let data = await fetch(`http://localhost:3002/register`, {
+            let data = await fetch(`${domain}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user)
             })
             data = await data.json();
-            console.log(data);
             if (data === 'All fields are required') return alert('All fields are required');
             return history.push("/");
         }
         catch (err) { console.log(err) }
     }
-    const citiesList = ['ירושלים', 'באר שבע', 'בני ברק', 'תל אביב', 'רמת גן'];
 
 
     const steps = getSteps();
@@ -164,7 +167,7 @@ export default function Register() {
 
             case 1:
                 return (
-                    <Form dir="rtl" style={{ marginRight: '20%' }}>
+                    <form dir="rtl" style={{ marginRight: '20%' }}>
                         <label className="label">שם פרטי</label>
                         <input type="text" placeholder='שם פרטי' className='form-control'
                             name='firstName'
@@ -185,18 +188,23 @@ export default function Register() {
                         {errors.lastName !== '' &&
                             <div className="errors">{errors.lastName} </div>
                         }
+
                         <label className="label" >   עיר   </label>
                         <input type="text" className='form-control'
+                            list="cities"
                             placeholder='עיר'
                             name='city'
                             onChange={handelChange}
                             value={user.city}
                         />
-                        {
-                            citiesList.map(city => {
-                                return (<div>{city}</div>)
-                            })
-                        }
+                        <datalist id="cities" >
+                            {citiesList.map(city => {
+                                return <option style={{ width: '100px' }}>{city}</option>
+                            })}
+                        </datalist>
+
+
+
                         {errors.city !== '' &&
                             <div className="errors" >{errors.city} </div>
                         }
@@ -214,7 +222,7 @@ export default function Register() {
                         <Button disabled={btn.disabledRegisterBtn} variant="contained" color="primary" onClick={register}>
                             הרשם
                         </Button>
-                    </Form>
+                    </form>
                 );
             default:
                 return 'Unknown stepIndex';
@@ -223,7 +231,7 @@ export default function Register() {
 
 
     return (
-        <div  dir='rtl' style={{ width: '60%', margin: 'auto' }}>
+        <div dir='rtl' style={{ width: '60%', margin: 'auto' }}>
             <Stepper activeStep={activeStep} >
                 {steps.map((label) => (
                     <Step key={label} >
