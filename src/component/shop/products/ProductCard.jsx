@@ -12,7 +12,7 @@ export default function ProductCard(props) {
             </div>
             <div className="card-content">
                 <p >{item.name}</p>
-                <p id='p'>₪{item.price} ל{item.unitOfMeasurement}</p>
+                <p id='p'>{item.price} ₪ ל{item.unitOfMeasurement}</p>
                 <span className="span-btn">{props.children}</span>
             </div>
         </div>

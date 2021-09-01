@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import './ProductList.css';
 import ProductButton from './ProductButton';
 import ProductCard from './ProductCard';
-import {domain} from '../../../config';
+import { domain } from '../../../config';
 
 export default function ProductList(props) {
-    
-    let { date, setDate, cartId, isAdmin,handelAdminClick } = props;
+
+    let { date, setDate, cartId, isAdmin, handelAdminClick } = props;
 
     const [items, setItems] = useState([]);
     const { id } = useParams();
@@ -19,7 +19,7 @@ export default function ProductList(props) {
             .catch(err => console.log(err))
     }, [id, date])
 
-  
+
 
     return (
         <div>
@@ -27,7 +27,7 @@ export default function ProductList(props) {
                 {items.map((item) => {
                     return (
                         <div className="column" key={item.id}>
-                            <ProductCard item={item}  handelAdminClick={handelAdminClick} isAdmin={isAdmin}>
+                            <ProductCard item={item} handelAdminClick={handelAdminClick} isAdmin={isAdmin}>
                                 {isAdmin === false && <ProductButton
                                     defaultValue={item.itemCarts.length > 0 ?
                                         item.itemCarts[0].amount : 0}

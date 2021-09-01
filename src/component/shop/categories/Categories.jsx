@@ -7,11 +7,11 @@ import useFetch from '../../custum hooks/useFetch';
 import CategoryNav from './CategoryNav';
 import SearchResult from '../SearchResult';
 import SearchBox from '../SearchBox';
-import {domain} from '../../../config';
+import { domain } from '../../../config';
 
 export default function Categories() {
     const user = JSON.parse(localStorage.getItem('auth'));
-
+    
     const history = useHistory();
 
     const [date, setDate] = useState('');
@@ -32,11 +32,10 @@ export default function Categories() {
                 .then(data => setCartId(data.id))
                 .catch(err => console.log('Error ', err))
         }
-        if (!onSearchActive) {
-            setTimeout(() => {
-                history.push('/categories/1/product')
-            }, 100)
+        if (!onSearchActive && cartId) {
+            history.push('/categories/1/product');
         }
+        if (user.isAdmin) { history.push('/categories/1/product'); }
     }, [cartId])
 
     function handelCategoryClick(id) {

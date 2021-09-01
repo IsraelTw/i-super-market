@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import './ProductButton.css';
-import {domain} from '../../../config';
+import { domain } from '../../../config';
 
 export default function ProductButton(props) {
-
+    const [disableAddBtn, setDisableAddBtn] = useState(false);
     const { defaultValue, item, cartId, setDate, parent } = props;
 
     function addProduct(item) {
@@ -14,7 +14,7 @@ export default function ProductButton(props) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item)
         })
-            .then(() => { setDate(new Date()) })
+            .then(() => { setDate(new Date()); setDisableAddBtn(false); })
             .catch(err => alert(err))
     }
 
@@ -40,9 +40,13 @@ export default function ProductButton(props) {
 
     return (
         <div className="product-button-div">
-            {parent === 'cart' && <button className="product-button-delete" onClick={() => removeProduct({ itemId: item.id })}>
-                <i className="trash alternate icon"></i>
-            </button>}
+            {
+                parent === 'cart' &&
+                <button className="product-button-delete" onClick={() => removeProduct({ itemId: item.id })}>
+                    <i className="trash alternate icon"></i>
+                </button>
+            }
+
             <button className="product-button" disabled={defaultValue === 0} onClick={() => {
                 if (defaultValue === 1) {
                     removeProduct({ itemId: item.id })
@@ -55,15 +59,16 @@ export default function ProductButton(props) {
             </button>
             <input type="text" disabled key={defaultValue} min="0" value={defaultValue} style={{ width: '30px', textAlign: 'center', border: '0px' }} />
 
-            <button className="product-button" onClick={() => {
+            <button disabled={disableAddBtn} className="product-button" onClick={() => {
                 if ('itemCarts' in item && item.itemCarts.length === 0) {
+                    setDisableAddBtn(true);
                     addProduct({ itemId: item.id, amount: 1, generalPrice: item.price, cartId })
                 }
                 else {
                     changeProductAmount({ itemId: item.id, amount: defaultValue + 1, generalPrice: (defaultValue + 1) * item.price, cartId })
                 }
             }}>
-                <AddIcon fontSize="small"/>
+                <AddIcon fontSize="small" />
             </button>
         </div>
     )

@@ -3,6 +3,7 @@
   align-items: baseline;
   justify-content: space-evenly;
   margin-left: 20%;
+  position: sticky;
 }
 
 .link-container Link{

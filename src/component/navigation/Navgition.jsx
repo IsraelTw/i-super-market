@@ -15,7 +15,8 @@ export default function Navgition({ isLogeedIn, currentUser }) {
                 </span>
                 <Link to='/categories/1/product'>מוצרים</Link>
             </>}
-            <Link to='/about'>אודות</Link>
+           
         </nav>
     )
 }
+// <Link to='/about'>אודות</Link>

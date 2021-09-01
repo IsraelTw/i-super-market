@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       currentUser.isAuth ? setIsLogeedIn(true) : setIsLogeedIn(false);
-      history.push('/Categories');
+      history.push('/categories');
     }
 
   }, [isLogeedIn])
